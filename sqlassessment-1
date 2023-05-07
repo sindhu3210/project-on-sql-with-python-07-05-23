@@ -1,0 +1,103 @@
+Create a database called “Inventory_Management” with different tables like “manufacture”, “goods”, “purchase”, “sale” etc.
+
+Insert multiple entries to these different tables - “manufacture”, “goods”, “purchase” and “sale”.
+
+In the “manufacture” table, one should be able to see all the products that need to be manufactured, and defective items during the manufacture with different entries like manufacture id, number of items required, etc. 
+
+In the “goods” table, it should include different items that are manufactured by the company along with the goods id, manufactured date, etc.
+
+In the “purchase” table, it should include all the purchase details that are purchased in different online and offline stores, along with the purchase id, purchase amount, etc.
+
+In the “sale” table, it should include all the items got sold in different stores with the sale date, profit margin, etc
+
+Delete the defective item, e.g., the shirt which was accidentally purchased by the “ORay” store, manufactured on the date ‘01-04-23’.
+
+Update the manufacture details of all the red-colored toys which are purchased by the “MyKids” store.
+
+Display all the “wooden chair” items that were manufactured before the 1st May 2023. 
+
+ Display the profit margin amount of the “wooden table” that was sold by the “MyCare” store, manufactured by the “SS Export” company.
+
+sql code:
+
+
+
+-- Create Inventory_Management database
+CREATE DATABASE Inventory_Management;
+
+-- Create manufacture table
+CREATE TABLE manufacture (
+  manufacture_id INT PRIMARY KEY,
+  item_name VARCHAR(50),
+  color VARCHAR(20),
+  number_of_items_required INT,
+  defective_items INT,
+  manufacture_date DATE
+);
+
+-- Insert data into manufacture table
+INSERT INTO manufacture (manufacture_id, item_name, color, number_of_items_required, defective_items, manufacture_date)
+VALUES (1, 'Toy Car', 'Red', 100, 5, '2023-04-01'),
+       (2, 'Wooden Chair', 'Brown', 50, 0, '2023-03-15'),
+       (3, 'Shirt', 'Blue', 200, 2, '2023-02-28');
+
+-- Create goods table
+CREATE TABLE goods (
+  goods_id INT PRIMARY KEY,
+  item_name VARCHAR(50),
+  color VARCHAR(20),
+  manufacture_date DATE
+);
+
+-- Insert data into goods table
+INSERT INTO goods (goods_id, item_name, color, manufacture_date)
+VALUES (1, 'Toy', 'Red', '2023-04-01'),
+       (2, 'Wooden Chair', 'Brown', '2023-03-15'),
+       (3, 'Shirt', 'Blue', '2023-02-28');
+
+-- Create purchase table
+CREATE TABLE purchase (
+  purchase_id INT PRIMARY KEY,
+  store_name VARCHAR(50),
+  item_name VARCHAR(50),
+  purchase_amount DECIMAL(10,2),
+  purchase_date DATE
+);
+
+-- Insert data into purchase table
+INSERT INTO purchase (purchase_id, store_name, item_name, purchase_amount, purchase_date)
+VALUES (1, 'ORay', 'Shirt', 500.00, '2023-04-01'),
+       (2, 'OnlineMart', 'Toy', 1500.00, '2023-04-15'),
+       (3, 'MyKids', 'Wooden Chair', 2500.00, '2023-05-01');
+
+-- Create sale table
+CREATE TABLE sale (
+  sale_id INT PRIMARY KEY,
+  store_name VARCHAR(50),
+  item_name VARCHAR(50),
+  sale_amount DECIMAL(10,2),
+  sale_date DATE,
+  profit_margin DECIMAL(10,2)
+);
+
+-- Insert data into sale table
+INSERT INTO sale (sale_id, store_name, item_name, sale_amount, sale_date, profit_margin)
+VALUES (1, 'MyCare', 'Wooden Table', 5000.00, '2023-04-01', 1000.00),
+       (2, 'OnlineMart', 'Toy', 3000.00, '2023-04-20', 500.00),
+       (3, 'MyKids', 'Wooden Chair', 4000.00, '2023-05-05', 1000.00);
+
+
+to delete the defective item:
+DELETE FROM goods WHERE item_name = 'T-Shirt' AND color = 'Blue' AND manufacture_date = '2023-04-01';
+
+
+To update the manufacture details of all red-colored toys purchased by MyKids store:
+
+UPDATE Manufacture SET NumItemsRequired = 150 WHERE ItemName = 'Red Toy';
+
+-- to display all the “wooden chair” items that were manufactured before the 1st May 2023
+SELECT * FROM Goods WHERE ItemName = 'Wooden Chair' AND ManufactureDate < '2023-05-01';
+
+
+
+
